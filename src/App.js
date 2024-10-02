@@ -4,8 +4,9 @@ import Pantalla from './components/Pantalla';
 import BotonClear from './components/Clear';
 import { useState } from 'react';
 import { evaluate } from 'mathjs';
+import PropTypes from 'prop-types';
 
-function App() {
+function App({tituloCalculadora}) {
 
   const [input, setInput] = useState('');
 
@@ -17,15 +18,14 @@ function App() {
     if (input) {
       setInput(evaluate(input));
     } else {
-      alert("Por favor ingrese valores para realizar los cálculos.");
+      alert("no olvides ingresar valores");
     }
   };
 
   return (
     <div className='App'>
       <div className='calculadoratitle'>
-        <title> Calculadora con React</title>
-        
+        <h1> {tituloCalculadora} </h1>
       </div>
       <div className='contenedor-calculadora'>
         <Pantalla input={input}/>
@@ -55,12 +55,19 @@ function App() {
         </div>
         <div className='fila'>
           <BotonClear manejarClear={() => setInput('')}>
-            Clear
+            Limpiar
           </BotonClear>
         </div>
       </div>
     </div>
   );
 }
+App.propTypes = {
+  tituloCalculadora: PropTypes.string.isRequired,
+};
+
+App.defaultProps = {
+  tituloCalculadora: 'Calculadora con React'
+};
 
 export default App;
